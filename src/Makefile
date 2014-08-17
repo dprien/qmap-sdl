@@ -34,7 +34,7 @@ CSRCS =\
  render.c
 
 OBJS = $(CSRCS:.c=.o)
-EXE = main
+EXE = qmap
 
 all: $(EXE)
 

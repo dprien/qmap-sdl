@@ -5,8 +5,7 @@
  *   General setup control, main "sim" loop
  */
 
-#include <conio.h>
-#include <dos.h>
+#include <SDL2/SDL.h>
 #include "bspfile.h"
 #include "mode.h"
 #include "3d.h"
@@ -43,7 +42,8 @@ void run_sim(void)
    cam_loc.y = 240;
    cam_loc.z = 100;
 
-   for (;;) {
+   bool done = false;
+   while (!done) {
 
       // RENDER
 
@@ -53,31 +53,62 @@ void run_sim(void)
 
       // UI
 
-      while (kbhit()) {
-         int c = getch();
-         switch(c) {
-            case 'Q': case 27:
-               return;
+      SDL_Event event;
+      while (SDL_PollEvent(&event)) {
+         switch (event.type)
+         {
+            case SDL_QUIT:
+               done = true;
+               break;
 
-            case 'v': cam_angvel.tx += ANG_STEP; break;
-            case 'r': cam_angvel.tx -= ANG_STEP; break;
-            case 'q': cam_angvel.ty += ANG_STEP; break;
-            case 'e': cam_angvel.ty -= ANG_STEP; break;
-            case 'd': cam_angvel.tz += ANG_STEP; break;
-            case 'a': cam_angvel.tz -= ANG_STEP; break;
-
-            case 'c': cam_vel.x += VEL_STEP; break;
-            case 'z': cam_vel.x -= VEL_STEP; break;
-            case '1': cam_vel.z -= VEL_STEP; break;
-            case '3': cam_vel.z += VEL_STEP; break;
-            case 'x': cam_vel.y -= VEL_STEP; break;
-            case 'w': cam_vel.y += VEL_STEP; break;
-
-            case ' ':
-               cam_vel.x = cam_vel.y = cam_vel.z = 0;
-               cam_angvel.tx = cam_angvel.ty = cam_angvel.tz = 0;
+            case SDL_KEYUP:
+               if (event.key.keysym.sym == SDLK_ESCAPE) {
+                  done = true;
+               }
                break;
          }
+      }
+
+      const Uint8 *keys = SDL_GetKeyboardState(NULL);
+      if (keys[SDL_SCANCODE_V]) {
+         cam_angvel.tx += ANG_STEP;
+      }
+      if (keys[SDL_SCANCODE_R]) {
+         cam_angvel.tx -= ANG_STEP;
+      }
+      if (keys[SDL_SCANCODE_Q]) {
+         cam_angvel.ty += ANG_STEP;
+      }
+      if (keys[SDL_SCANCODE_E]) {
+         cam_angvel.ty -= ANG_STEP;
+      }
+      if (keys[SDL_SCANCODE_D]) {
+         cam_angvel.tz += ANG_STEP;
+      }
+      if (keys[SDL_SCANCODE_A]) {
+         cam_angvel.tz -= ANG_STEP;
+      }
+      if (keys[SDL_SCANCODE_C]) {
+         cam_vel.x += VEL_STEP;
+      }
+      if (keys[SDL_SCANCODE_Z]) {
+         cam_vel.x -= VEL_STEP;
+      }
+      if (keys[SDL_SCANCODE_1]) {
+         cam_vel.z -= VEL_STEP;
+      }
+      if (keys[SDL_SCANCODE_3]) {
+         cam_vel.z += VEL_STEP;
+      }
+      if (keys[SDL_SCANCODE_X]) {
+         cam_vel.y -= VEL_STEP;
+      }
+      if (keys[SDL_SCANCODE_W]) {
+         cam_vel.y += VEL_STEP;
+      }
+      if (keys[SDL_SCANCODE_SPACE]) {
+         cam_vel.x = cam_vel.y = cam_vel.z = 0;
+         cam_angvel.tx = cam_angvel.ty = cam_angvel.tz = 0;
       }
 
       // "PHYSICS"
@@ -121,6 +152,10 @@ int main(int argc, char **argv)
    if (argc != 2) {
       printf("Usage: qmap <bspfile>\n");
    } else {
+      if (SDL_Init(SDL_INIT_EVERYTHING)) {
+         fatal("SDL_Init failed\n");
+      }
+
       LoadBSPFile(argv[1]);
       set_lores();
       load_graphics();
@@ -129,6 +164,7 @@ int main(int argc, char **argv)
 
       run_sim();
       set_text();
+      SDL_Quit();
    }
    return 0;
 }

@@ -6,46 +6,98 @@
  *   mode, blit to framebuffer, set palette)
  */
 
-#include <conio.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <SDL2/SDL.h>
 
 #include "s.h"
 #include "mode.h"
 
-char *framebuffer = (char *) 0xA0000;
+const int RENDER_WIDTH = 320;
+const int RENDER_HEIGHT = 200;
+
+SDL_Window *window = NULL;
+SDL_Renderer *renderer = NULL;
+SDL_Texture *texture = NULL;
+char *rgb_buf = NULL;
+char palette[256 * 3];
 
 void blit(char *src)
 {
-   memcpy(framebuffer, src, 320*200);
+   char *s = src, *d = rgb_buf;
+   for (int y = 0; y < RENDER_HEIGHT; y++) {
+      for (int x = 0; x < RENDER_WIDTH; x++, s++) {
+         int index = *s * 3;
+         *d++ = palette[index + 2];
+         *d++ = palette[index + 1];
+         *d++ = palette[index + 0];
+         *d++ = -128;
+      }
+   }
+
+   SDL_UpdateTexture(texture, NULL, rgb_buf, RENDER_WIDTH * sizeof(Uint32));
+
+   SDL_RenderClear(renderer);
+   SDL_RenderCopy(renderer, texture, NULL, NULL);
+   SDL_RenderPresent(renderer);
 }
 
-void set_pal(uchar *pal)
+void set_pal(char *pal)
 {
-   int i;
-   outp(0x3c8, 0);
-   for (i=0; i < 768; ++i)
-      outp(0x3c9, pal[i] >> 2);
+   memcpy(palette, pal, 3 * 256);
 }
-
-#pragma aux set_mode = \
-    "  int  10h" \
-    parm [eax];
 
 void set_mode(int mode);
 
 bool graphics=0;
 void set_lores(void)
 {
+   window = SDL_CreateWindow(
+         "qmap",
+         233, //SDL_WINDOWPOS_UNDEFINED,
+         78, //SDL_WINDOWPOS_UNDEFINED,
+         1200,
+         900,
+         SDL_WINDOW_SHOWN);
+   if (!window) {
+      fatal("SDL_CreateWindow failed\n");
+   }
+
+   renderer = SDL_CreateRenderer(
+         window,
+         -1,
+         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+   if (!renderer) {
+      fatal("SDL_CreateRenderer failed\n");
+   }
+
+   //SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+
+   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+   SDL_RenderClear(renderer);
+   SDL_RenderPresent(renderer);
+
+   texture = SDL_CreateTexture(
+         renderer,
+         SDL_PIXELFORMAT_ARGB8888,
+         SDL_TEXTUREACCESS_STREAMING,
+         RENDER_WIDTH,
+         RENDER_HEIGHT);
+   if (!texture) {
+      fatal("SDL_CreateTexture failed\n");
+   }
+
+   rgb_buf = malloc(RENDER_WIDTH * RENDER_HEIGHT * sizeof(Uint32));
    graphics = 1;
-   set_mode(0x13);
 }
 
 void set_text(void)
 {
    if (graphics) {
-      set_mode(0x3);
+      free(rgb_buf);
+      SDL_DestroyRenderer(renderer);
+      SDL_DestroyWindow(window);
       graphics = 0;
    }
 }

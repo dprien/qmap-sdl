@@ -56,7 +56,7 @@
 typedef struct
 {
    int      fileofs, filelen;
-} lump_t;
+} __attribute__((packed)) lump_t;
 
 #define   LUMP_ENTITIES   0
 #define   LUMP_PLANES      1
@@ -83,19 +83,19 @@ typedef struct
    int         headnode[MAX_MAP_HULLS];
    int         visleafs;      // not including the solid leaf 0
    int         firstface, numfaces;
-} dmodel_t;
+} __attribute__((packed)) dmodel_t;
 
 typedef struct
 {
    int         version;
    lump_t      lumps[HEADER_LUMPS];
-} dheader_t;
+} __attribute__((packed)) dheader_t;
 
 typedef struct
 {
    int         nummiptex;
    int         dataofs[4];      // [nummiptex]
-} dmiptexlump_t;
+} __attribute__((packed)) dmiptexlump_t;
 
 #define   MIPLEVELS   4
 typedef struct miptex_s
@@ -103,13 +103,13 @@ typedef struct miptex_s
    char      name[16];
    unsigned   width, height;
    unsigned   offsets[MIPLEVELS];      // four mip maps stored
-} miptex_t;
+} __attribute__((packed)) miptex_t;
 
 
 typedef struct
 {
    float   point[3];
-} dvertex_t;
+} __attribute__((packed)) dvertex_t;
 
 
 // 0-2 are axial planes
@@ -127,7 +127,7 @@ typedef struct
    float   normal[3];
    float   dist;
    int      type;      // PLANE_X - PLANE_ANYZ ?remove? trivial to regenerate
-} dplane_t;
+} __attribute__((packed)) dplane_t;
 
 
 
@@ -147,13 +147,13 @@ typedef struct
    short      maxs[3];
    unsigned short   firstface;
    unsigned short   numfaces;   // counting both sides
-} dnode_t;
+} __attribute__((packed)) dnode_t;
 
 typedef struct
 {
    int         planenum;
    short      children[2];   // negative numbers are contents
-} dclipnode_t;
+} __attribute__((packed)) dclipnode_t;
 
 
 typedef struct texinfo_s
@@ -161,7 +161,7 @@ typedef struct texinfo_s
    float      vecs[2][4];      // [s/t][xyz offset]
    int         miptex;
    int         flags;
-} texinfo_t;
+} __attribute__((packed)) texinfo_t;
 #define TEX_SPECIAL   1      // sky or slime, no lightmap or 256 subdivision
 
 // note that edge 0 is never used, because negative edge nums are used for
@@ -169,7 +169,7 @@ typedef struct texinfo_s
 typedef struct
 {
    unsigned short   v[2];      // vertex numbers
-} dedge_t;
+} __attribute__((packed)) dedge_t;
 
 #define   MAXLIGHTMAPS   4
 typedef struct
@@ -184,7 +184,7 @@ typedef struct
 // lighting info
    byte      styles[MAXLIGHTMAPS];
    int         lightofs;      // start of [numstyles*surfsize] samples
-} dface_t;
+} __attribute__((packed)) dface_t;
 
 
 
@@ -209,7 +209,7 @@ typedef struct
    unsigned short      nummarksurfaces;
 
    byte      ambient_level[NUM_AMBIENTS];
-} dleaf_t;
+} __attribute__((packed)) dleaf_t;
 
 //============================================================================
 

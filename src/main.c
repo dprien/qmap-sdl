@@ -72,7 +72,7 @@ void run_sim(void)
             case '3': cam_vel.z += VEL_STEP; break;
             case 'x': cam_vel.y -= VEL_STEP; break;
             case 'w': cam_vel.y += VEL_STEP; break;
-               
+
             case ' ':
                cam_vel.x = cam_vel.y = cam_vel.z = 0;
                cam_angvel.tx = cam_angvel.ty = cam_angvel.tz = 0;
@@ -109,7 +109,7 @@ void load_graphics(void)
       fatal("Couldn't read palette.lmp\n");
    fread(pal, 1, 768, f);
    fclose(f);
-   set_pal(pal); 
+   set_pal(pal);
    if ((f = fopen("colormap.lmp", "rb")) == NULL)
       fatal("Couldn't read colormap.lmp\n");
    fread(colormap, 256, 64, f);
@@ -127,7 +127,7 @@ int main(int argc, char **argv)
       init_cache();
       setup_default_point_list();
 
-      run_sim();      
+      run_sim();
       set_text();
    }
    return 0;

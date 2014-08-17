@@ -46,7 +46,7 @@ Commandline usage:
    smaller max sizes than id's utilities, so it's
    possible to have levels which are too big (and
    they'll just barf without being detected).
-   
+
                     --==--==--
 
 Controls:

@@ -138,7 +138,7 @@ void compute_texture_gradients(int face, int tex, int mip, float u, float v)
    tmap_data[0] -= tmap_data[1]*159.5 + tmap_data[2]*99.5;
    tmap_data[3] -= tmap_data[4]*159.5 + tmap_data[5]*99.5;
    tmap_data[6] -= tmap_data[7]*159.5 + tmap_data[8]*99.5;
-     
+
    tmap_data[0] *= rescale;
    tmap_data[1] *= rescale;
    tmap_data[2] *= rescale;

@@ -78,7 +78,7 @@ Subsections of this file:
       blit()
          Blits a 320x200 screen
 
-      set_pal() 
+      set_pal()
          Sets a palette stored as 0..255 (not VGA 0..63)
 
       set_lores()
@@ -89,7 +89,7 @@ Subsections of this file:
 
       fatal_error()
          Display error message (implements fatal() macro)
-   
+
     3d.c
 
       Note that worldspace is x-right, y-depth, z-up (which
@@ -178,8 +178,8 @@ Subsections of this file:
 
       get_raw_tmap() [Quake specific]
         Given a texture and mip level, return the Quake mip texture
-        as a "bitmap". 
-         
+        as a "bitmap".
+
      (various cache managment routines omitted)
 
       get_tmap() [Quake specific]

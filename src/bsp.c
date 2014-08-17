@@ -22,7 +22,7 @@ int find_leaf(vector *loc)
    while (n >= 0) {
       dnode_t *node = &dnodes[n];
       n = node->children[point_plane_test(loc, &dplanes[node->planenum])];
-   }   
+   }
    return ~n;
 }
 

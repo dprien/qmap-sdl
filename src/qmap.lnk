@@ -2,7 +2,7 @@ option quiet
 option map=qmap.map
 debug all
 file main.obj
-file poly.obj 
+file poly.obj
 file render.obj
 file 3d.obj
 file mode.obj

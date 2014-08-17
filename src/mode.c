@@ -41,7 +41,7 @@ void set_lores(void)
    graphics = 1;
    set_mode(0x13);
 }
-   
+
 void set_text(void)
 {
    if (graphics) {

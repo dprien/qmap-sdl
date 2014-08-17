@@ -2,7 +2,7 @@
  *
  *    clippoly.c   Copyright 1997 Sean Barrett
  *
- *    clip polygon to view frustrum, in viewspace
+ *    clip polygon to view frustum, in viewspace
  */
 
 #include "3d.h"
@@ -46,7 +46,7 @@ static double bottom_loc(point_3d *a, point_3d *b)
    return -(a->Z+a->Y*clip_scale_y)/((b->Y-a->Y)*clip_scale_y + b->Z-a->Z);
 }
 
-// clip the polygon to each of the view frustrum planes
+// clip the polygon to each of the view frustum planes
 int clip_poly(int n, point_3d **vl, int codes_or, point_3d ***out_vl)
 {
    int i,j,k,p=0; // p = index into temporary point pool

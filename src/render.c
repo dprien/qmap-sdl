@@ -46,7 +46,7 @@ int bbox_inside_plane(short *mins, short *maxs, dplane_t *plane)
         + plane->normal[2]*pt[2] >= plane->dist;
 }
 
-int node_in_frustrum(dnode_t *node, dplane_t *planes)
+int node_in_frustum(dnode_t *node, dplane_t *planes)
 {
    if (!bbox_inside_plane(node->mins, node->maxs, planes+0)
     || !bbox_inside_plane(node->mins, node->maxs, planes+1)
@@ -56,7 +56,7 @@ int node_in_frustrum(dnode_t *node, dplane_t *planes)
    return 1;
 }
 
-int leaf_in_frustrum(dleaf_t *node, dplane_t *planes)
+int leaf_in_frustum(dleaf_t *node, dplane_t *planes)
 {
    if (!bbox_inside_plane(node->mins, node->maxs, planes+0)
     || !bbox_inside_plane(node->mins, node->maxs, planes+1)
@@ -128,7 +128,7 @@ void render_node_faces(int node, int side)
 void render_world(vector *loc)
 {
    dplane_t planes[4];
-   compute_view_frustrum(planes);
+   compute_view_frustum(planes);
 
    if (!visit_visible_leaves(loc)) {
       memset(scr_buf, 0, 320*200);

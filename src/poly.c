@@ -113,10 +113,10 @@ void draw_face(int face)
       codes_and &= pts[i].ccodes;
    }
 
-   if (codes_and) return;  // abort if poly outside frustrum
+   if (codes_and) return;  // abort if poly outside frustum
 
    if (codes_or) {
-      // poly crosses frustrum, so clip it
+      // poly crosses frustum, so clip it
       n = clip_poly(n, default_vlist, codes_or, &vlist);
    } else
       vlist = default_vlist;

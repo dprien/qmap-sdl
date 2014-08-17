@@ -119,8 +119,8 @@ Subsections of this file:
       rotate_vec()
          rotate_c2w(), but in place (replaces original vector)
 
-      compute_view_frustrum() [Quake specific]
-         returns view frustrum as four world-space planes
+      compute_view_frustum() [Quake specific]
+         returns view frustum as four world-space planes
 
       transform_point_raw()
          transform a point from world space to camera space
@@ -133,7 +133,7 @@ Subsections of this file:
          perspective projection
 
       code_point()
-         Compute bitmask of which frustrum planes point is behind
+         Compute bitmask of which frustum planes point is behind
 
       transform_point()
          transform, code, and project a point
@@ -151,7 +151,7 @@ Subsections of this file:
 
       draw_face() [Quake specific]
         Given Quake face, convert to poly, transform, clip
-        to frustrum, and draw
+        to frustum, and draw
 
     tm.c
 
@@ -193,7 +193,7 @@ Subsections of this file:
     clippoly.c
 
       clip_poly()
-        Do "3D" clipping to clip a polygon to the view frustrum.
+        Do "3D" clipping to clip a polygon to the view frustum.
 
     render.c  [all Quake specific]
 
@@ -203,11 +203,11 @@ Subsections of this file:
         whose name was totally unrelated and I don't remember
         it anymore; the principle is easily derivable though.
 
-      node_in_frustrum()
-        Test if a given BSP node is partly inside the frustrum
+      node_in_frustum()
+        Test if a given BSP node is partly inside the frustum
 
-      leaf_in_frustrum()
-        Test if a given BSP leaf is partly inside the frustrum
+      leaf_in_frustum()
+        Test if a given BSP leaf is partly inside the frustum
 
       mark_leaf_faces()
         For given leaf, mark all faces which are referenced in
@@ -238,7 +238,7 @@ Subsections of this file:
         Recursively propogate the leaf PVS info up the tree
 
       bsp_explore_node()
-        Recurse through BSP tree; for every leaf in PVS and frustrum,
+        Recurse through BSP tree; for every leaf in PVS and frustum,
         call mark_leaf_faces()
 
       bsp_visit_visible_leaves()

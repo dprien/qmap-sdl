@@ -74,13 +74,13 @@ void bsp_explore_node(int node)
    if (node < 0) {
       node = ~node;
       if (vis_leaf[node >> 3] & (1 << (node & 7)))
-         if (leaf_in_frustrum(&dleafs[node], planes))
+         if (leaf_in_frustum(&dleafs[node], planes))
             mark_leaf_faces(node);
       return;
    }
 
    if (vis_node[node]) {
-      if (!node_in_frustrum(&dnodes[node], planes))
+      if (!node_in_frustum(&dnodes[node], planes))
          vis_node[node] = 0;
       else {
          bsp_explore_node(dnodes[node].children[0]);

@@ -18,12 +18,12 @@ Strategy 1:
     Iterate over all leaves in PVS; mark all
        polygons as visible.
 
-    Recurse over all bsp nodes in frustrum;
+    Recurse over all bsp nodes in frustum;
        draw every marked polygon on this node
 
   problem: this tests _every_ polygon in the database
     to see if it's been marked, in worst case of entire
-    level in frustrum
+    level in frustum
 
 Strategy 2:
 
@@ -39,14 +39,14 @@ Strategy 2:
 
   problem: this tests _every_ node in the database to
      see if it's marked (in worst case of entire level
-     in frustrum)
+     in frustum)
 
 Both of the above approaches can also be augmented so
-they only iterate over leaves in PVS _and_ in frustrum,
+they only iterate over leaves in PVS _and_ in frustum,
 which will cull out most polygons which are entirely
-outside the frustrum.
+outside the frustum.
 
-Of course, it might be nice to not even frustrum test
+Of course, it might be nice to not even frustum test
 them all, for example by doing something like this:
 
 Strategy 3:
@@ -56,15 +56,15 @@ Strategy 3:
    Iterate over all leaves in PVS
       tag leaf as visible
 
-   Recurse over all bsp nodes in frustrum
-      for every leaf in frustrum
+   Recurse over all bsp nodes in frustum
+      for every leaf in frustum
          if that leaf is tagged as visible, mark all polygons, etc.
 
-   Recurse over all bsp nodes in frustrum
+   Recurse over all bsp nodes in frustum
       For every marked node,
          draw all marked polygons
 
-  problem: this still tests every node in the frustrum
+  problem: this still tests every node in the frustum
       during the first recursion
 
 The following strategy has the same problem, but more level performance:
@@ -78,22 +78,22 @@ Strategy 4:
       if either child is tagged as visible, tag as visible
       (i.e. recursive propogate up PVS information)
 
-   Recurse over all nodes "in" PVS and in frustrum
-      (if not in frustrum, mark as not "in" PVS)
-      for every leaf in frustrum
+   Recurse over all nodes "in" PVS and in frustum
+      (if not in frustum, mark as not "in" PVS)
+      for every leaf in frustum
          if that leaf is tagged as visible, mark all polygons visible
 
-   Recurse over all nodes "in" PVS and in frustrum (cached)
+   Recurse over all nodes "in" PVS and in frustum (cached)
       draw every marked polygon on this node
 
   problem: the first recursion still visits every node in tree
 
 This is the approach I've taken.  No matter how much of the
-scene is in the frustrum, the first recursion does the same
+scene is in the frustum, the first recursion does the same
 amount of work (which levels performance).  It's also very
-simple, e.g. no frustrum checking etc.  This then significantly
+simple, e.g. no frustum checking etc.  This then significantly
 speeds up the other two recursions, which don't waste time
-frustrum checking parts of the level which don't include
+frustum checking parts of the level which don't include
 leaves in the PVS.
 
 A simple augmentation to the above would be to cache the

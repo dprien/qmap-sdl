@@ -38,7 +38,7 @@ extern void transform_point_raw(vector *out, vector *in);
 extern void rotate_point_raw(vector *out, vector *in);
 extern void transform_vector(vector *out, vector *in);
 extern double dist2_from_viewer(vector *loc);
-extern void compute_view_frustrum(dplane_t *planes);
+extern void compute_view_frustum(dplane_t *planes);
 
 
 // point_3d stuff

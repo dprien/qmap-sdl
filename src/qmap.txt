@@ -49,7 +49,7 @@ Featurelist:
    - bsp sorted, painter's algorithm
    - precomputed PVS culling of leaves
    - dynamic PVS culling of nodes
-   - frustrum culling of nodes and leaves
+   - frustum culling of nodes and leaves
    - backface culling of polys ("for free" with bsp sort)
 
 Anti-featurelist (things not implemented):

@@ -147,7 +147,7 @@ void compute_plane(dplane_t *plane, float x, float y, float z)
    plane->dist = temp.x*cam_loc.x + temp.y*cam_loc.y + temp.z*cam_loc.z;
 }
 
-void compute_view_frustrum(dplane_t *planes)
+void compute_view_frustum(dplane_t *planes)
 {
    compute_plane(planes+0, -1,  0, 1);
    compute_plane(planes+1,  1,  0, 1);

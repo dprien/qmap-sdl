@@ -11,7 +11,7 @@ Source code:
   tmap3d.c      151      general setup of tmapping stuff in 3d
   surface.c     196      surface builder & cacher
 
-  clippoly.c    132      clip polygon to view frustrum
+  clippoly.c    132      clip polygon to view frustum
 
   render.c      140      Quake-specific database scanning
   bsp.c          98      various "recurse-through-bsp-tree" code

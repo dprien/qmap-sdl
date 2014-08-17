@@ -15,7 +15,7 @@
 #define DIST  256.0    // dist to switch first mip level
 #define DIST2 (DIST*DIST)
 
-int compute_mip_level(face)
+int compute_mip_level(int face)
 {
    // dumb algorithm: grab 3d coordinate of some vertex,
    // compute dist from viewer
@@ -38,6 +38,10 @@ void get_face_extent(int face, int *u0, int *v0, int *u1, int *v1)
    int i,n = dfaces[face].numedges;
    int se = dfaces[face].firstedge;
    vector *loc;
+
+   if (n < 1) {
+      fatal("get_face_extent: no edges!");
+   }
 
    memcpy(u, texinfo[tex].vecs[0], sizeof(u));
    memcpy(v, texinfo[tex].vecs[1], sizeof(v));

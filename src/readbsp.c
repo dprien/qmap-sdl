@@ -521,7 +521,7 @@ LoadBSPFile
 */
 void   LoadBSPFile (char *filename)
 {
-   int         i;
+   size_t         i;
 
 //
 // load the file header
@@ -534,7 +534,7 @@ void   LoadBSPFile (char *filename)
 
    if (header->version != BSPVERSION) {
       printf("******* WARNING ********\n");
-      printf("%s is version %i, not %i", filename, i, BSPVERSION);
+      printf("%s is version %zu, not %i", filename, i, BSPVERSION);
    }
 
    nummodels = CopyLump (LUMP_MODELS, dmodels, sizeof(dmodel_t));

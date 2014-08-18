@@ -20,7 +20,7 @@ typedef long int32;
 extern double chop_temp;
 #define FLOAT_TO_INT(x)  ((chop_temp = (x) + BIG_NUM), *(int*)(&chop_temp))
 #define FLOAT_TO_FIX(x)  \
-             ((chop_temp = (x) + BIG_NUM/65536.0), *(int*)(&chop_temp))
+    ((chop_temp = (x) + BIG_NUM/65536.0), *(int*)(&chop_temp))
 
 #define BIG_NUM     ((float) (1 << 26) * (1 << 26) * 1.5)
 

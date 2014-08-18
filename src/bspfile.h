@@ -28,7 +28,7 @@
 #define   MAX_MAP_LIGHTING   0x100000
 #define   MAX_MAP_VISIBILITY   0x100000
 #else
-  // my values
+// my values
 #define   MAX_MAP_NODES      10000      // because negative shorts are contents
 #define   MAX_MAP_CLIPNODES  10000      //
 #define   MAX_MAP_LEAFS      10001      //
@@ -55,7 +55,7 @@
 
 typedef struct
 {
-   int      fileofs, filelen;
+    int      fileofs, filelen;
 } __attribute__((packed)) lump_t;
 
 #define   LUMP_ENTITIES   0
@@ -78,37 +78,37 @@ typedef struct
 
 typedef struct
 {
-   float      mins[3], maxs[3];
-   float      origin[3];
-   int         headnode[MAX_MAP_HULLS];
-   int         visleafs;      // not including the solid leaf 0
-   int         firstface, numfaces;
+    float      mins[3], maxs[3];
+    float      origin[3];
+    int         headnode[MAX_MAP_HULLS];
+    int         visleafs;      // not including the solid leaf 0
+    int         firstface, numfaces;
 } __attribute__((packed)) dmodel_t;
 
 typedef struct
 {
-   int         version;
-   lump_t      lumps[HEADER_LUMPS];
+    int         version;
+    lump_t      lumps[HEADER_LUMPS];
 } __attribute__((packed)) dheader_t;
 
 typedef struct
 {
-   int         nummiptex;
-   int         dataofs[4];      // [nummiptex]
+    int         nummiptex;
+    int         dataofs[4];      // [nummiptex]
 } __attribute__((packed)) dmiptexlump_t;
 
 #define   MIPLEVELS   4
 typedef struct miptex_s
 {
-   char      name[16];
-   unsigned   width, height;
-   unsigned   offsets[MIPLEVELS];      // four mip maps stored
+    char      name[16];
+    unsigned   width, height;
+    unsigned   offsets[MIPLEVELS];      // four mip maps stored
 } __attribute__((packed)) miptex_t;
 
 
 typedef struct
 {
-   float   point[3];
+    float   point[3];
 } __attribute__((packed)) dvertex_t;
 
 
@@ -124,9 +124,9 @@ typedef struct
 
 typedef struct
 {
-   float   normal[3];
-   float   dist;
-   int      type;      // PLANE_X - PLANE_ANYZ ?remove? trivial to regenerate
+    float   normal[3];
+    float   dist;
+    int      type;      // PLANE_X - PLANE_ANYZ ?remove? trivial to regenerate
 } __attribute__((packed)) dplane_t;
 
 
@@ -141,26 +141,26 @@ typedef struct
 // !!! if this is changed, it must be changed in asm_i386.h too !!!
 typedef struct
 {
-   int         planenum;
-   short      children[2];   // negative numbers are -(leafs+1), not nodes
-   short      mins[3];      // for sphere culling
-   short      maxs[3];
-   unsigned short   firstface;
-   unsigned short   numfaces;   // counting both sides
+    int         planenum;
+    short      children[2];   // negative numbers are -(leafs+1), not nodes
+    short      mins[3];      // for sphere culling
+    short      maxs[3];
+    unsigned short   firstface;
+    unsigned short   numfaces;   // counting both sides
 } __attribute__((packed)) dnode_t;
 
 typedef struct
 {
-   int         planenum;
-   short      children[2];   // negative numbers are contents
+    int         planenum;
+    short      children[2];   // negative numbers are contents
 } __attribute__((packed)) dclipnode_t;
 
 
 typedef struct texinfo_s
 {
-   float      vecs[2][4];      // [s/t][xyz offset]
-   int         miptex;
-   int         flags;
+    float      vecs[2][4];      // [s/t][xyz offset]
+    int         miptex;
+    int         flags;
 } __attribute__((packed)) texinfo_t;
 #define TEX_SPECIAL   1      // sky or slime, no lightmap or 256 subdivision
 
@@ -168,22 +168,22 @@ typedef struct texinfo_s
 // counterclockwise use of the edge in a face
 typedef struct
 {
-   unsigned short   v[2];      // vertex numbers
+    unsigned short   v[2];      // vertex numbers
 } __attribute__((packed)) dedge_t;
 
 #define   MAXLIGHTMAPS   4
 typedef struct
 {
-   short      planenum;
-   short      side;
+    short      planenum;
+    short      side;
 
-   int         firstedge;      // we must support > 64k edges
-   short      numedges;
-   short      texinfo;
+    int         firstedge;      // we must support > 64k edges
+    short      numedges;
+    short      texinfo;
 
-// lighting info
-   byte      styles[MAXLIGHTMAPS];
-   int         lightofs;      // start of [numstyles*surfsize] samples
+    // lighting info
+    byte      styles[MAXLIGHTMAPS];
+    int         lightofs;      // start of [numstyles*surfsize] samples
 } __attribute__((packed)) dface_t;
 
 
@@ -199,16 +199,16 @@ typedef struct
 // all other leafs need visibility info
 typedef struct
 {
-   int         contents;
-   int         visofs;            // -1 = no visibility info
+    int         contents;
+    int         visofs;            // -1 = no visibility info
 
-   short      mins[3];         // for frustum culling
-   short      maxs[3];
+    short      mins[3];         // for frustum culling
+    short      maxs[3];
 
-   unsigned short      firstmarksurface;
-   unsigned short      nummarksurfaces;
+    unsigned short      firstmarksurface;
+    unsigned short      nummarksurfaces;
 
-   byte      ambient_level[NUM_AMBIENTS];
+    byte      ambient_level[NUM_AMBIENTS];
 } __attribute__((packed)) dleaf_t;
 
 //============================================================================
@@ -239,10 +239,10 @@ extern   dplane_t   dplanes[MAX_MAP_PLANES];
 extern   int         numvertexes;
 extern   dvertex_t   dvertexes[MAX_MAP_VERTS];
 #if 1
-   // this generates faster code with watcom 9.5
-   #define VERTEX(x) ((dvertex_t *) ((char *) dvertexes + (x)*4 + (x)*8))
+// this generates faster code with watcom 9.5
+#define VERTEX(x) ((dvertex_t *) ((char *) dvertexes + (x)*4 + (x)*8))
 #else
-   #define VERTEX(x) &dvertexes[x]
+#define VERTEX(x) &dvertexes[x]
 #endif
 
 extern   int         numnodes;

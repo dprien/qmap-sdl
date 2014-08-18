@@ -4,9 +4,9 @@
 #include "fix.h"
 
 typedef struct {
-   char *bits;
-   int wid;
-   int ht;
+    char *bits;
+    int wid;
+    int ht;
 } bitmap;
 
 extern void qmap_draw_affine(int n, char *dest, fix u, fix v, fix du, fix dv);

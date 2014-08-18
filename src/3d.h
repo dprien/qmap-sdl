@@ -7,21 +7,21 @@
 
 typedef struct
 {
-   float x,y,z;
+    float x,y,z;
 } vector;
 
 typedef struct
 {
-   fixang tx,ty,tz;
+    fixang tx,ty,tz;
 } angvec;
 
 typedef struct
 {
-   vector p;
-   uchar  ccodes;
-   uchar  pad0,pad1,pad2;
-   fix    sx,sy;
-   float  u,v;
+    vector p;
+    uchar  ccodes;
+    uchar  pad0,pad1,pad2;
+    fix    sx,sy;
+    float  u,v;
 } point_3d;   // 32 bytes
 
 // vector math

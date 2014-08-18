@@ -34,7 +34,7 @@ void run_sim(void)
 {
    vector temp;
 
-   scr_buf = malloc(320*200);
+   scr_buf = new char[320 * 200];
    scr_row = 320;
    qmap_set_output(scr_buf, scr_row);
 

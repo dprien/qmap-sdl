@@ -40,7 +40,7 @@ Error
 For abnormal program terminations
 =================
 */
-void Error (char *error, ...)
+void Error (const char *error, ...)
 {
    va_list argptr;
 
@@ -57,7 +57,7 @@ void Error (char *error, ...)
 char *copystring(char *s)
 {
    char   *b;
-   b = malloc(strlen(s)+1);
+   b = new char[strlen(s) + 1];
    strcpy (b, s);
    return b;
 }
@@ -134,7 +134,7 @@ int    LoadFile (char *filename, void **bufferptr)
 
    f = SafeOpenRead (filename);
    length = filelength (f);
-   buffer = malloc (length+1);
+   buffer = reinterpret_cast<void*>(new char[length + 1]);
    ((char *)buffer)[length] = 0;
    SafeRead (f, buffer, length);
    fclose (f);
@@ -344,7 +344,7 @@ SwapBSPFile
 Byte swaps all data in a bsp file.
 =============
 */
-void SwapBSPFile (qboolean todisk)
+void SwapBSPFile (bool todisk)
 {
    int            i, j, c;
    dmodel_t      *d;
@@ -554,7 +554,7 @@ void   LoadBSPFile (char *filename)
    lightdatasize = CopyLump (LUMP_LIGHTING, dlightdata, 1);
    entdatasize = CopyLump (LUMP_ENTITIES, dentdata, 1);
 
-   free (header);      // everything has been copied out
+   delete header;      // everything has been copied out
 
 //
 // swap everything

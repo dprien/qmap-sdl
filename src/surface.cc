@@ -45,7 +45,7 @@ void free_surface(int surf)
       surface_cache[surface[surf].face] = -1;
 
    cur_cache -= surface[surf].bm->wid * surface[surf].bm->ht + sizeof(bitmap);
-   free(surface[surf].bm);
+   delete [] surface[surf].bm;
 }
 
 void free_next_surface(void)
@@ -72,7 +72,7 @@ int allocate_cached_surface(int size)
    while (cur_cache + size > MAX_CACHE)
       free_next_surface();
 
-   surface[surf].bm = malloc(size);
+   surface[surf].bm = reinterpret_cast<bitmap*>(new char[size]);
    cur_cache += size;
 
    return surf;

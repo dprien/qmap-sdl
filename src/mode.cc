@@ -88,21 +88,21 @@ void set_lores(void)
       fatal("SDL_CreateTexture failed\n");
    }
 
-   rgb_buf = malloc(RENDER_WIDTH * RENDER_HEIGHT * sizeof(Uint32));
+   rgb_buf = new char[RENDER_WIDTH * RENDER_HEIGHT * sizeof(Uint32)];
    graphics = 1;
 }
 
 void set_text(void)
 {
    if (graphics) {
-      free(rgb_buf);
+       delete [] rgb_buf;
       SDL_DestroyRenderer(renderer);
       SDL_DestroyWindow(window);
       graphics = 0;
    }
 }
 
-void fatal_error(char *message, char *file, int line)
+void fatal_error(const char *message, const char *file, int line)
 {
    set_text();
    printf("Error (%s line %d): %s\n", file, line, message);

@@ -13,7 +13,6 @@
 
 #ifndef __BYTEBOOL__
 #define __BYTEBOOL__
-typedef enum {false, true} qboolean;
 typedef unsigned char byte;
 #endif
 
@@ -78,7 +77,7 @@ float	LittleFloat (float l);
 char *COM_Parse (char *data);
 
 extern	char		com_token[1024];
-extern	qboolean	com_eof;
+extern	bool	    com_eof;
 
 char *copystring(char *s);
 
@@ -90,7 +89,7 @@ unsigned short CRC_Value(unsigned short crcvalue);
 void	CreatePath (char *path);
 void CopyFile (char *from, char *to);
 
-extern	qboolean		archive;
+extern	bool		    archive;
 extern	char			archivedir[1024];
 
 

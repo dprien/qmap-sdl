@@ -31,7 +31,7 @@ fix scan[768][2];
 
 void scan_convert(point_3d *a, point_3d *b)
 {
-   void *temp;
+   point_3d *temp;
    int right;
    fix x,dx;
    int y,ey;

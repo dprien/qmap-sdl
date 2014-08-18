@@ -6,7 +6,6 @@ typedef unsigned int uint;
 typedef unsigned long ulong;
 typedef unsigned short fixang;
 typedef unsigned short ushort;
-typedef int bool;
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef long int32;
@@ -25,7 +24,7 @@ extern double chop_temp;
 
 #define BIG_NUM     ((float) (1 << 26) * (1 << 26) * 1.5)
 
-extern void fatal_error(char *message, char *file, int line);
+extern void fatal_error(const char *message, const char *file, int line);
 #define fatal(s)   fatal_error(s, __FILE__, __LINE__)
 
 #endif

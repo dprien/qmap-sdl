@@ -20,12 +20,12 @@ const int RENDER_HEIGHT = 200;
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 SDL_Texture *texture = NULL;
-char *rgb_buf = NULL;
-char palette[256 * 3];
+uchar *rgb_buf = NULL;
+uchar palette[256 * 3];
 
-void blit(char *src)
+void blit(uchar *src)
 {
-    char *s = src, *d = rgb_buf;
+    uchar *s = src, *d = rgb_buf;
     for (int y = 0; y < RENDER_HEIGHT; y++) {
         for (int x = 0; x < RENDER_WIDTH; x++, s++) {
             int index = *s * 3;
@@ -42,7 +42,7 @@ void blit(char *src)
     SDL_RenderPresent(renderer);
 }
 
-void set_pal(char *pal)
+void set_pal(uchar *pal)
 {
     memcpy(palette, pal, 3 * 256);
 }
@@ -87,7 +87,7 @@ void set_lores(void)
 
     SDL_SetRelativeMouseMode(SDL_TRUE);
 
-    rgb_buf = new char[RENDER_WIDTH * RENDER_HEIGHT * sizeof(Uint32)];
+    rgb_buf = new uchar[RENDER_WIDTH * RENDER_HEIGHT * sizeof(Uint32)];
 
     graphics = 1;
 }

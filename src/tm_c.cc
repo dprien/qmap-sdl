@@ -13,7 +13,7 @@
 #include "fix.h"
 #include "tm.h"
 
-char  *qmap_buf,    *qmap_tex;
+uchar  *qmap_buf,   *qmap_tex;
 int    qmap_buf_row, qmap_tex_row;
 int    qmap_wid, qmap_ht;
 
@@ -27,7 +27,7 @@ static double qmap_tmap[9];
 
 int is_cached;
 
-void qmap_draw_affine(int n, char *dest, fix u, fix v, fix du, fix dv)
+void qmap_draw_affine(int n, uchar *dest, fix u, fix v, fix du, fix dv)
 {
     if (is_cached) {
         while (n--) {
@@ -128,7 +128,7 @@ void qmap_draw_span(int y, int sx, int ex)
 
 ///  setup global variables code
 
-void qmap_set_output(char *where, int row)
+void qmap_set_output(uchar *where, int row)
 {
     qmap_buf = where;
     if (qmap_buf_row != row) {

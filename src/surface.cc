@@ -32,7 +32,7 @@ void get_raw_tmap(bitmap *bm, int tex, int ml)
     dmiptexlump_t *mtl = (dmiptexlump_t *) dtexdata;
     miptex_t *mip;
     mip = (miptex_t *) (dtexdata + mtl->dataofs[tex]);
-    bm->bits = (char *) mip + mip->offsets[ml];
+    bm->bits = (uchar *) mip + mip->offsets[ml];
     bm->wid  = mip->width >> ml;
     bm->ht   = mip->height >> ml;
 }
@@ -80,7 +80,7 @@ int allocate_cached_surface(int size)
 
 extern int is_cached;
 
-void build_block(char *out, bitmap *raw, int x, int y);
+void build_block(uchar *out, bitmap *raw, int x, int y);
 static int shift, global_step, global_row, lightmap_width;
 static uchar *light_index;
 static uchar blank_light[512];
@@ -117,7 +117,7 @@ void get_tmap(bitmap *bm, int face, int tex, int ml, float *u, float *v)
     get_raw_tmap(&raw, tex, ml);
 
     surf = surface_cache[face] = allocate_cached_surface(bm->wid * bm->ht);
-    bm->bits = (char *) &surface[surf].bm[1];
+    bm->bits = (uchar *) &surface[surf].bm[1];
     *surface[surf].bm = *bm;
 
     surface[surf].face = face;
@@ -157,13 +157,13 @@ void get_tmap(bitmap *bm, int face, int tex, int ml, float *u, float *v)
 }
 
 // compute one lightmap square of surface
-void build_block(char *out, bitmap *raw, int x, int y)
+void build_block(uchar *out, bitmap *raw, int x, int y)
 {
-    extern char colormap[][256];
+    extern uchar colormap[][256];
     fix c,dc;
     int a,b,h,c0,c1,c2,c3, step = global_step, row = global_row - step;
     int y_max = raw->ht, x_max = raw->wid;
-    char *s = raw->bits + y*raw->wid;
+    uchar *s = raw->bits + y*raw->wid;
 
     c0 = (255 - light_index[0]) << 16;
     c1 = (255 - light_index[1]) << 16;

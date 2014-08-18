@@ -11,6 +11,7 @@
  *  I don't claim any copyright either.
  */
 
+#include "s.h"
 #include "bspfile.h"
 #include "mode.h"
 

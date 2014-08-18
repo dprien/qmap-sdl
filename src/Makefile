@@ -1,5 +1,4 @@
 CXXFLAGS =\
- -funsigned-char\
  -std=c++11\
  -O2\
  -fno-strict-aliasing\

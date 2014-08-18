@@ -6,6 +6,7 @@
  */
 
 #include <SDL2/SDL.h>
+#include "s.h"
 #include "bspfile.h"
 #include "mode.h"
 #include "3d.h"
@@ -22,18 +23,18 @@ double chop_temp;
 vector cam_loc, cam_vel, new_loc;
 angvec cam_ang, cam_angvel;
 
-char *scr_buf;
+uchar *scr_buf;
 int   scr_row;
 
 #define VEL_STEP  2.0
 
-char colormap[64][256];
+uchar colormap[64][256];
 
 void run_sim(void)
 {
     vector temp;
 
-    scr_buf = new char[320 * 200];
+    scr_buf = new uchar[320 * 200];
     scr_row = 320;
     qmap_set_output(scr_buf, scr_row);
 
@@ -120,7 +121,7 @@ void run_sim(void)
 
 void load_graphics(void)
 {
-    char pal[768];
+    uchar pal[768];
     FILE *f;
     if ((f = fopen("palette.lmp", "rb")) == NULL)
         fatal("Couldn't read palette.lmp\n");

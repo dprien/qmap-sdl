@@ -42,6 +42,8 @@ void run_sim(void)
     cam_loc.y = 240;
     cam_loc.z = 100;
 
+    SDL_SetRelativeMouseMode(SDL_TRUE);
+
     bool done = false;
     while (!done) {
 
@@ -65,11 +67,21 @@ void run_sim(void)
                     if (event.key.keysym.sym == SDLK_ESCAPE) {
                         done = true;
                     }
+                    else if (event.key.keysym.sym == SDLK_f) {
+                        SDL_SetRelativeMouseMode(SDL_FALSE);
+                    }
                     break;
                 }
+                case SDL_MOUSEBUTTONDOWN: {
+                    if (event.button.button == SDL_BUTTON_LEFT) {
+                        SDL_SetRelativeMouseMode(SDL_TRUE);
+                    }
+                }
                 case SDL_MOUSEMOTION: {
-                    cam_ang.tx += event.motion.yrel << 5;
-                    cam_ang.tz += event.motion.xrel << 5;
+                    if (SDL_GetRelativeMouseMode()) {
+                        cam_ang.tx += event.motion.yrel << 5;
+                        cam_ang.tz += event.motion.xrel << 5;
+                    }
                 }
             }
         }

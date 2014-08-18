@@ -85,10 +85,7 @@ void set_lores(void)
         fatal("SDL_CreateTexture failed\n");
     }
 
-    SDL_SetRelativeMouseMode(SDL_TRUE);
-
     rgb_buf = new uchar[RENDER_WIDTH * RENDER_HEIGHT * sizeof(Uint32)];
-
     graphics = 1;
 }
 
